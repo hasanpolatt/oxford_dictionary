@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './styles/App.css';
-import AboutPage from './pages/AboutPage';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+
 
 const App: React.FC = () => {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true); // Varsayılan olarak koyu tema
+
+  // Tema değiştirme fonksiyonu
+  const toggleTheme = (): void => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  // Tema değiştiğinde body sınıfını güncelle
+  useEffect(() => {
+    document.body.className = isDarkMode ? 'dark-theme' : 'light-theme';
+  }, [isDarkMode]);
+
   return (
     <Router>
       <div className="App">
-        <Navbar />
+        <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />

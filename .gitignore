@@ -18,6 +18,14 @@
 .env.test.local
 .env.production.local
 
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# data files
+# Uncomment the next line if you want to ignore all CSV files
+# *.csv
+# Or specify particular CSV files to ignore
+/public/words.csv
+# Add other specific CSV files as needed

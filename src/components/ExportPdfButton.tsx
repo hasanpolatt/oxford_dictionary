@@ -13,14 +13,14 @@ interface ExportPdfButtonProps {
 
 const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({ 
   data, 
-  title = "Oxford Dictionary" 
+  title = "Oxford Dictionary 3000" 
 }) => {
   
   // PDF creation and download function
   const exportPdf = (): void => {
     
     // Ask for confirmation
-    const confirmMessage = `${data.length} do you want to download words as PDF??`;
+    const confirmMessage = `Would you like to download all the words edited as a PDF?`;
     if (!window.confirm(confirmMessage)) {
       return; // Stop the process if the user canceled
     }
@@ -31,7 +31,7 @@ const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({
       unit: 'mm',
       format: 'a4',
       putOnlyUsedFonts: true,
-      floatPrecision: 16 // veya 'smart'
+      floatPrecision: 16 // or 'smart'
     });
     
     // Use Unicode supported font instead of default Helvetica
@@ -40,12 +40,11 @@ const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({
     
     // Add title
     doc.setFontSize(18);
-    doc.text(title, 14, 22);
+    doc.text(title, 14, 20);
     
-    // Add date
-    const date = new Date().toLocaleDateString();
-    doc.setFontSize(11);
-    doc.text(`Export Date: ${date}`, 14, 30);
+    // Add description
+    doc.setFontSize(10);
+    doc.text("The Oxford 3000 is the list of the 3000 most important words to learn in English, from A1 to B2 level.", 14, 28, { maxWidth: 180 });
     
     // Create table
     const tableColumn = ["No", "CEFR", "Type", "English", "Türkçe"];
@@ -63,18 +62,17 @@ const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({
       tableRows.push(rowData);
     });
     
-    // Insert table into PDF
+    // Current date for filename only
+    const date = new Date().toLocaleDateString().replace(/\//g, '-');
+    
+    // Insert table into PDF with header only on first page
     autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
-      startY: 40,
+      startY: 35,
       styles: {
-        fontSize: 10,
-        cellPadding: 3,
-        lineColor: [44, 62, 80],
-        lineWidth: 0.25,
         font: 'Roboto',
-        fontStyle: 'normal'
+        fontSize: 9
       },
       headStyles: {
         fillColor: [0, 255, 157],
@@ -85,8 +83,16 @@ const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({
       alternateRowStyles: {
         fillColor: [240, 240, 240],
       },
-      margin: { top: 40 },
-      didDrawCell: (data) => {
+      margin: { top: 10 },
+      // Show header only on first page
+      showHead: 'firstPage',
+      // Fix spacing between pages
+      didDrawPage: (data) => {
+        // Reset top margin for pages after the first page
+        if (data.pageNumber > 1) {
+          // @ts-ignore - pageMargins exists but TypeScript doesn't recognize it
+          data.settings.margin.top = 10;
+        }
       },
       willDrawCell: (data) => {
         doc.setFont('Roboto');
@@ -94,7 +100,7 @@ const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({
     });
     
     // Download PDF
-    doc.save(`${title.replace(/\s+/g, '_')}_${date.replace(/\//g, '-')}.pdf`);
+    doc.save(`${title.replace(/\s+/g, '_')}_${date}.pdf`);
   };
   
   return (

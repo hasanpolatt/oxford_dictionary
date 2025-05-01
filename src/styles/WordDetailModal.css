@@ -1,0 +1,161 @@
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: var(--bg-color-lightest);
+  color: var(--text-color);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: var(--shadow-lg);
+  animation: slideIn 0.3s ease;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+/* Modal Close Button */
+.modal-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  color: var(--text-color);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.modal-close-button:hover {
+  transform: scale(1.2);
+}
+
+/* Modal Header */
+.word-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.word-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  letter-spacing: 1px;
+}
+
+.word-cefr {
+  background-color: var(--accent-color);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: var(--border-radius);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.word-type {
+  font-style: italic;
+  color: var(--accent-tertiary);
+}
+
+/* Modal Sections */
+.word-translation, .word-definition, .word-examples, .word-synonyms, .word-notes {
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  margin-bottom: 10px;
+}
+
+.translation-text, .definition-text, .example-en, .example-tr, .synonym-item, .notes-text {
+  font-size: 1rem;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.translation-text, .definition-text {
+  margin-bottom: 15px;
+}
+
+.word-examples .example-item {
+  margin-bottom: 10px;
+}
+
+/* Synonyms List */
+.word-synonyms .synonyms-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.synonym-item {
+  background-color: var(--bg-color-lighter);
+  padding: 5px 10px;
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+}
+
+.synonym-item:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  cursor: pointer;
+}
+
+/* Error and Loading States */
+.modal-loading, .modal-error {
+  text-align: center;
+  color: var(--accent-color);
+  margin: 30px 0;
+}
+
+.modal-loading p, .modal-error p {
+  font-size: 1.2rem;
+}
+
+.modal-error {
+  color: var(--accent-secondary);
+  background-color: rgba(255, 0, 160, 0.1);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 10px rgba(255, 0, 160, 0.2);
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

@@ -24,6 +24,7 @@ const HomePage: React.FC = () => {
   const [enrichmentError, setEnrichmentError] = useState<string | null>(null);
 
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '';
+  const WORD_CSV = process.env.REACT_APP_WORD_CSV || '';
 
   const parseCSV = (csv: string): DictionaryItem[] => {
     const lines = csv.split('\n');
@@ -77,7 +78,7 @@ const HomePage: React.FC = () => {
       try {
         setIsLoading(true);
         setError(null); 
-        const response = await fetch('/words2.csv');
+        const response = await fetch(`/${WORD_CSV}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }

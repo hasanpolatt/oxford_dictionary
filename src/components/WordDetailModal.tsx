@@ -28,67 +28,82 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content">
-        <button className="modal-close-button" onClick={onClose}>
-          &times;
-        </button>
-        
         {isLoading && (
           <div className="modal-loading">
+            <div className="modal-loading-spinner"></div>
             <p>Loading word details...</p>
           </div>
         )}
         
         {error && (
           <div className="modal-error">
-            <p>Error: {error}</p>
+            <h3>Error</h3>
+            <p>{error}</p>
           </div>
         )}
         
         {!isLoading && !error && data && (
           <div className="word-details">
             <div className="word-header">
-              <h2 className="word-title">{data.English}</h2>
-              <span className="word-cefr">{data.CEFR}</span>
-              <span className="word-type">{data.type}</span>
-            </div>
-            
-            <div className="word-translation">
-              <h3 className="translation-title">Turkish</h3>
-              <p className="translation-text">{data.Turkish}</p>
-            </div>
-            
-            <div className="word-definition">
-              <h3 className="definition-title">Definition</h3>
-              <p className="definition-text">{data.definition}</p>
-            </div>
-            
-            {data.example && (
-              <div className="word-examples">
-                <h3 className="examples-title">Example</h3>
-                <div className="example-item">
-                  <p className="example-en">{data.example.en}</p>
-                  <p className="example-tr">{data.example.tr}</p>
+              <div className="word-title-container">
+                <div className="word-main">
+                  <span className="language-indicator">EN</span>
+                  <h2 className="word-title">{data.English}</h2>
+                </div>
+                <div className="word-badges">
+                  <span className="word-badge cefr-badge">{data.CEFR}</span>
+                  <span className="word-badge type-badge">{data.type}</span>
                 </div>
               </div>
-            )}
+              <div className="word-translation-container">
+                <span className="language-indicator">TR</span>
+                <h3 className="word-translation">{data.Turkish}</h3>
+              </div>
+            </div>
+            
+            <div className="word-section">
+              <div className="section-title-container">
+                <h4 className="section-title">Definition</h4>
+                <span className="language-indicator small">EN</span>
+              </div>
+              <p className="section-content">{data.definition}</p>
+            </div>
+            
+            <div className="word-section">
+              <div className="section-title-container">
+                <h4 className="section-title">Example</h4>
+              </div>
+              <div className="example-container">
+                <div className="example-with-lang">
+                  <span className="language-indicator small">EN</span>
+                  <p className="example-text">{data.example.en}</p>
+                </div>
+                <div className="example-with-lang">
+                  <span className="language-indicator small">TR</span>
+                  <p className="example-translation">{data.example.tr}</p>
+                </div>
+              </div>
+            </div>
             
             {data.synonyms && data.synonyms.length > 0 && (
-              <div className="word-synonyms">
-                <h3 className="synonyms-title">Synonyms</h3>
-                <div className="synonyms-list">
+              <div className="word-section">
+                <div className="section-title-container">
+                  <h4 className="section-title">Synonyms</h4>
+                </div>
+                <div className="synonyms-container">
                   {data.synonyms.map((synonym, index) => (
-                    <span key={index} className="synonym-item">
-                      {synonym}{index < data.synonyms.length - 1 ? ', ' : ''}
-                    </span>
+                    <span key={index} className="synonym-tag">{synonym}</span>
                   ))}
                 </div>
               </div>
             )}
             
             {data.notes && (
-              <div className="word-notes">
-                <h3 className="notes-title">Notes</h3>
-                <p className="notes-text">{data.notes}</p>
+              <div className="word-section">
+                <div className="section-title-container">
+                  <h4 className="section-title">Notes</h4>
+                </div>
+                <p className="section-content">{data.notes}</p>
               </div>
             )}
           </div>

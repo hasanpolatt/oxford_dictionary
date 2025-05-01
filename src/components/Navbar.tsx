@@ -18,12 +18,12 @@ const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
         <ul className="nav-menu">
           <li className="nav-item">
             <Link to="/" className="nav-link">
-              Ana Sayfa
+              Home
             </Link>
           </li>
           <li className="nav-item">
             <Link to="/about" className="nav-link">
-              Hakkında
+              About
             </Link>
           </li>
         </ul>

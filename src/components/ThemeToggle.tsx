@@ -10,16 +10,16 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isDarkMode, toggleTheme }) =>
     <button 
       className={`theme-toggle ${isDarkMode ? 'dark' : 'light'}`}
       onClick={toggleTheme}
-      title={isDarkMode ? "Açık temaya geç" : "Koyu temaya geç"}
-      aria-label={isDarkMode ? "Açık temaya geç" : "Koyu temaya geç"}
+      title={isDarkMode ? "Switch to light theme" : "Switch to dark theme"}
+      aria-label={isDarkMode ? "Switch to light theme" : "Switch to dark theme"}
     >
       {isDarkMode ? (
-        // Ay ikonu (koyu tema için)
+        // Moon icon (for dark theme)
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       ) : (
-        // Güneş ikonu (açık tema için)
+        // Sun icon (for light theme)
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="5"></circle>
           <line x1="12" y1="1" x2="12" y2="3"></line>

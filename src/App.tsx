@@ -7,14 +7,14 @@ import AboutPage from './pages/AboutPage';
 
 
 const App: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(true); // Varsayılan olarak koyu tema
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
 
-  // Tema değiştirme fonksiyonu
+  // Theme change function
   const toggleTheme = (): void => {
     setIsDarkMode(!isDarkMode);
   };
 
-  // Tema değiştiğinde body sınıfını güncelle
+  // Update body class when theme changes
   useEffect(() => {
     document.body.className = isDarkMode ? 'dark-theme' : 'light-theme';
   }, [isDarkMode]);

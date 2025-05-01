@@ -3,6 +3,7 @@ import DictionaryTable from '../components/DictionaryTable';
 import ExportPdfButton from '../components/ExportPdfButton';
 import SearchBar from '../components/SearchBar';
 import RowsPerPageSelector from '../components/RowsPerPageSelector';
+import Pagination from '../components/Pagination';
 import { DictionaryItem } from '../types';
 
 const HomePage: React.FC = () => {
@@ -60,7 +61,7 @@ const HomePage: React.FC = () => {
     const fetchCSVData = async (): Promise<void> => {
       try {
         setIsLoading(true);
-        const response = await fetch('/words.csv');
+        const response = await fetch('/words2.csv');
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -132,25 +133,11 @@ const HomePage: React.FC = () => {
           <DictionaryTable data={currentItems} />
           
           {filteredData.length > 0 && (
-            <div className="pagination">
-              <button
-                onClick={() => paginate(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="pagination-button"
-              >
-                &laquo; Previous
-              </button>
-              <span className="pagination-info">
-                Page {currentPage} / {totalPages}
-              </span>
-              <button
-                onClick={() => paginate(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="pagination-button"
-              >
-                Next &raquo;
-              </button>
-            </div>
+            <Pagination 
+              currentPage={currentPage}
+              totalPages={totalPages}
+              paginate={paginate}
+            />
           )}
         </>
       )}

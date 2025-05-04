@@ -1,9 +1,10 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Query
 from pydantic import BaseModel
 from google import genai
-from typing import List, Optional
+from typing import List, Optional, Union
 import os
 from functools import lru_cache
+from pathlib import Path
 from pydantic_settings import BaseSettings
 import json
 from fastapi.middleware.cors import CORSMiddleware  # Import CORSMiddleware
@@ -12,7 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware  # Import CORSMiddleware
 # Environment configuration
 class Settings(BaseSettings):
     gemini_api_key: str
-    model_name: str = "gemini-2.0-pro"
+    model_name: str = "gemini-2.0-flash"
 
     class Config:
         # Load from .env file
@@ -166,6 +167,88 @@ def health_check():
 def receive_word(details: WordDetails, settings: Settings = Depends(get_settings)):
     enriched_data = enrich_word(details, settings)
     return {"message": "Word enriched successfully", "data": enriched_data}
+
+
+# Model for word lookup request
+class WordLookup(BaseModel):
+    word: str
+    cefr: Optional[str] = None
+
+
+# Function to get word details from JSON files
+def get_word_from_file(word: str, cefr: Optional[str] = None) -> Optional[dict]:
+    try:
+        # Base directory for word details
+        details_dir = Path(__file__).parent / "details"
+        
+        # If CEFR level is specified, look only in that directory
+        if cefr:
+            cefr = cefr.lower()
+            json_path = details_dir / cefr / f"{word}.json"
+            if json_path.exists():
+                with open(json_path, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            return None
+        
+        # If CEFR level is not specified, search in all directories
+        cefr_levels = ["a1", "a2", "b1", "b2", "c1", "c2"]
+        for level in cefr_levels:
+            json_path = details_dir / level / f"{word}.json"
+            if json_path.exists():
+                with open(json_path, "r", encoding="utf-8") as f:
+                    return json.load(f)
+        
+        return None
+    except Exception as e:
+        print(f"Error reading word file: {str(e)}")
+        return None
+
+
+# Endpoint to get word details from JSON files
+@app.get("/words/lookup/{word}", response_model=dict, tags=["words"])
+def lookup_word(word: str, cefr: Optional[str] = Query(None, description="CEFR level (a1, a2, b1, b2, c1, c2)")):
+    # Normalize word (lowercase)
+    word = word.lower()
+    
+    # Get word details from file
+    word_data = get_word_from_file(word, cefr)
+    
+    if not word_data:
+        raise HTTPException(status_code=404, detail=f"Word '{word}' not found")
+    
+    return word_data
+
+
+# Endpoint to list all available words
+@app.get("/words/list", response_model=dict, tags=["words"])
+def list_words(cefr: Optional[str] = Query(None, description="Filter by CEFR level")):
+    try:
+        # Base directory for word details
+        details_dir = Path(__file__).parent / "details"
+        
+        result = {}
+        
+        # If CEFR level is specified, list only words from that level
+        if cefr:
+            cefr = cefr.lower()
+            cefr_dir = details_dir / cefr
+            if not cefr_dir.exists():
+                return {"words": []}
+            
+            words = [f.stem for f in cefr_dir.glob("*.json")]
+            result[cefr] = sorted(words)
+        else:
+            # List words from all CEFR levels
+            cefr_levels = [d.name for d in details_dir.iterdir() if d.is_dir()]
+            
+            for level in sorted(cefr_levels):
+                level_dir = details_dir / level
+                words = [f.stem for f in level_dir.glob("*.json")]
+                result[level] = sorted(words)
+        
+        return {"words": result}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error listing words: {str(e)}")
 
 
 if __name__ == "__main__":

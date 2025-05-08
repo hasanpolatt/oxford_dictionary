@@ -1,0 +1,12 @@
+tr.clickable-row {
+  cursor: pointer;
+}
+
+tr.clickable-row:hover {
+  background-color: var(--table-row-hover);
+}
+
+/* Ensure hover on even rows uses the same hover color */
+tr.clickable-row:nth-child(even):hover {
+  background-color: var(--table-row-hover);
+}

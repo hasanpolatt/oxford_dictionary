@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './styles/App.css';
+import styles from './components/App.module.css';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
@@ -21,7 +21,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <div className="App">
+      <div className={styles.app}>
         <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
         <Routes>
           <Route path="/" element={<HomePage />} />

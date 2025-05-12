@@ -1,0 +1,304 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modalContent {
+  background-color: var(--bg-color-lighter);
+  border-radius: var(--border-radius);
+  width: 90%;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  animation: slideUp 0.3s ease;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) var(--bg-color-lighter);
+}
+
+.modalContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modalContent::-webkit-scrollbar-track {
+  background: var(--bg-color-lighter);
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 20px;
+  border: 2px solid var(--bg-color-lighter);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.wordDetails {
+  padding: 25px;
+}
+
+.wordHeader {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.wordTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.wordMain {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wordTranslationContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.languageIndicator {
+  background-color: var(--bg-color-lightest);
+  color: var(--text-color-muted);
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--border-color);
+  font-family: 'Space Mono', monospace;
+}
+
+.small {
+  font-size: 0.6rem;
+  padding: 2px 4px;
+}
+
+.sectionTitleContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.wordTitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  font-family: 'Space Mono', monospace;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.wordBadges {
+  display: flex;
+  gap: 10px;
+}
+
+.wordBadge {
+  padding: 5px 10px;
+  border-radius: var(--border-radius);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cefrBadge {
+  background-color: rgba(0, 255, 157, 0.15);
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+}
+
+.typeBadge {
+  background-color: rgba(163, 87, 255, 0.15);
+  color: var(--accent-tertiary);
+  border: 1px solid var(--accent-tertiary);
+}
+
+.wordTranslation {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin: 0;
+  font-weight: 500;
+}
+
+.wordSection {
+  margin-bottom: 25px;
+}
+
+.sectionContent {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  margin: 0;
+  text-align: left;
+}
+
+.exampleContainer {
+  background-color: var(--bg-color-lightest);
+  border-radius: var(--border-radius);
+  padding: 15px 20px;
+  border-left: 3px solid var(--border-color);
+}
+
+.exampleWithLang {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.exampleWithLang:last-child {
+  margin-bottom: 0;
+}
+
+.exampleText {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin: 0;
+  font-style: italic;
+  flex: 1;
+}
+
+.exampleText::before {
+  content: '"';
+  color: var(--text-color-muted);
+}
+
+.exampleText::after {
+  content: '"';
+  color: var(--text-color-muted);
+}
+
+.exampleTranslation {
+  font-size: 0.9rem;
+  color: var(--text-color-muted);
+  margin: 0;
+  flex: 1;
+}
+
+.synonymsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.synonymTag {
+  background-color: var(--bg-color-lightest);
+  color: var(--text-color);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-color);
+}
+
+.synonymTag:hover {
+  background-color: var(--bg-color);
+}
+
+.modalLoading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  text-align: center;
+}
+
+.modalLoadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  border-top-color: var(--accent-color);
+  border-right-color: var(--accent-secondary);
+  border-bottom-color: var(--accent-tertiary);
+  animation: spin 1.2s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.modalLoading p {
+  color: var(--text-color-muted);
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 1px;
+}
+
+.modalError {
+  padding: 30px;
+  text-align: center;
+  color: var(--accent-secondary);
+  background-color: rgba(255, 0, 160, 0.1);
+  border-radius: var(--border-radius);
+  margin: 30px;
+  border: 1px solid var(--accent-secondary);
+}
+
+.modalError h3 {
+  margin-bottom: 10px;
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    width: 95%;
+    max-height: 80vh;
+  }
+  
+  .wordTitle {
+    font-size: 1.8rem;
+  }
+  
+  .wordTitleContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .wordBadges {
+    margin-top: 5px;
+  }
+  
+  .wordDetails {
+    padding: 20px;
+  }
+}

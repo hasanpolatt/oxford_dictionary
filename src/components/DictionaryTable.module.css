@@ -1,0 +1,58 @@
+.clickableRow {
+  cursor: pointer;
+}
+
+.clickableRow:hover {
+  background-color: var(--table-row-hover);
+}
+
+/* Ensure hover on even rows uses the same hover color */
+.clickableRow:nth-child(even):hover {
+  background-color: var(--table-row-hover);
+}
+
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.cefrLevel {
+  text-align: center;
+}
+
+.wordType {
+  text-align: center;
+}
+
+.englishWordContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pronunciationButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.pronunciationButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.englishWord {
+  font-weight: 500;
+}
+
+.noResults {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-color-muted);
+}

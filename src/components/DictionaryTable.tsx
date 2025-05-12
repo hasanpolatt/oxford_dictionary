@@ -1,6 +1,6 @@
 import React from 'react';
 import { DictionaryItem } from '../types';
-import '../styles/DictionaryTable.css';
+import styles from './DictionaryTable.module.css';
 
 interface DictionaryTableProps {
   data: DictionaryItem[];
@@ -15,7 +15,7 @@ const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) =
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
     } else {
-      alert('Maalesef tarayıcınız konuşma sentezini desteklemiyor.');
+      alert('Unfortunately, your browser does not support speech synthesis.');
     }
   };
   
@@ -25,13 +25,13 @@ const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) =
   };
 
   return (
-    <div className="table-container">
+    <div className={styles.tableContainer}>
       <table id="dictionaryTable">
         <thead>
           <tr>
             <th style={{ width: '5%', textAlign: 'center' }}>No</th>
-            <th className="cefr-level">CEFR</th>
-            <th className="word-type">Type</th>
+            <th className={styles.cefrLevel}>CEFR</th>
+            <th className={styles.wordType}>Type</th>
             <th style={{ textAlign: 'left', paddingLeft: '50px' }}>English</th>
             <th style={{ textAlign: 'left', paddingLeft: '20px' }}>Türkçe</th>
           </tr>
@@ -42,23 +42,23 @@ const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) =
               <tr
                 key={item.number} 
                 onClick={() => onRowClick(item)} 
-                className="clickable-row" 
+                className={styles.clickableRow} 
                 title="Click for details"
               >
                 <td>{item.number}</td>
-                <td className="cefr-level">{item.cefr}</td>
-                <td className="word-type" title={item.wordType}>
+                <td className={styles.cefrLevel}>{item.cefr}</td>
+                <td className={styles.wordType} title={item.wordType}>
                   {item.wordType && item.wordType.length > 10
                     ? item.wordType.split(',').map(type => type.trim().substring(0, 3)).join(', ')
                     : item.wordType}
                 </td>
                 <td>
-                  <div className="english-word-container">
+                  <div className={styles.englishWordContainer}>
                     <button
-                      className="pronunciation-button"
+                      className={styles.pronunciationButton}
                       onClick={(e) => handlePronunciationClick(e, item.english)} 
-                      title="Telaffuz et"
-                      aria-label={`${item.english} kelimesini telaffuz et`}
+                      title="Pronounce"
+                      aria-label={`${item.english} pronounce the word`}
                     >
                       <svg xmlns="" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
@@ -66,7 +66,7 @@ const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) =
                         <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
                       </svg>
                     </button>
-                    <span className="english-word">{item.english}</span>
+                    <span className={styles.englishWord}>{item.english}</span>
                   </div>
                 </td>
                 <td>{item.turkish}</td>
@@ -74,7 +74,7 @@ const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) =
             ))
           ) : (
             <tr>
-              <td colSpan={5} className="no-results">No results found</td>
+              <td colSpan={5} className={styles.noResults}>No results found</td>
             </tr>
           )}
         </tbody>

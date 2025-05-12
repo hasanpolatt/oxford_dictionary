@@ -34,4 +34,7 @@ yarn-error.log*
 /backend/.env
 /backend/.venv
 /backend/__pycache__
+/backend/*.csv
+/backend/details
 
+/scripts

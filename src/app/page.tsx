@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect, useCallback } from 'react';
 import DictionaryTable from '../components/DictionaryTable';
 import ExportPdfButton from '../components/ExportPdfButton';
@@ -5,10 +7,10 @@ import SearchBar from '../components/SearchBar';
 import RowsPerPageSelector from '../components/RowsPerPageSelector';
 import Pagination from '../components/Pagination';
 import { DictionaryItem } from '../types';
-import { WordDetailsInput, WordDetailsResponse, WordEnrichment } from '../types/WordDetailModal.types';
+import { WordEnrichment } from '../types/WordDetailModal.types';
 import WordDetailModal from '../components/WordDetailModal';
 
-const HomePage: React.FC = () => {
+export default function HomePage() {
   const [allData, setAllData] = useState<DictionaryItem[]>([]);
   const [filteredData, setFilteredData] = useState<DictionaryItem[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -17,14 +19,14 @@ const HomePage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [itemsPerPage, setItemsPerPage] = useState<number>(20);
 
-  
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedWordData, setSelectedWordData] = useState<WordEnrichment | null>(null);
   const [isEnriching, setIsEnriching] = useState<boolean>(false);
   const [enrichmentError, setEnrichmentError] = useState<string | null>(null);
 
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '';
-  const WORD_CSV = process.env.REACT_APP_WORD_CSV || '';
+  // Next.js için API URL'sini güncelliyoruz
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
+  const WORD_CSV = 'words.csv';
 
   const parseCSV = (csv: string): DictionaryItem[] => {
     const lines = csv.split('\n');
@@ -66,11 +68,10 @@ const HomePage: React.FC = () => {
     return result;
   };
 
-
   useEffect(() => {
     const fetchCSVData = async (): Promise<void> => {
       if (!API_BASE_URL) {
-        setError("API URL is not configured. Please set REACT_APP_API_BASE_URL in your environment.");
+        setError("API URL is not configured. Please set NEXT_PUBLIC_API_URL in your environment.");
         setIsLoading(false);
         return;
       }
@@ -100,7 +101,6 @@ const HomePage: React.FC = () => {
 
     fetchCSVData();
   }, [API_BASE_URL, error]); 
-
 
   useEffect(() => {
     if (searchTerm.trim() === '') {
@@ -133,8 +133,8 @@ const HomePage: React.FC = () => {
     const encodedWord = encodeURIComponent(item.english);
     
     try {
-      // Use the lookup endpoint instead of the detail endpoint
-      const response = await fetch(`${API_BASE_URL}/words/lookup/${encodedWord}?cefr=${item.cefr}`, {
+      // Use dictionary/word endpoint
+      const response = await fetch(`/api/dictionary/word?term=${encodedWord}&cefr=${item.cefr}`, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -154,6 +154,7 @@ const HomePage: React.FC = () => {
 
       const responseData = await response.json();
       
+      // API yanıtı doğrudan veri veya { message, data } formatında olabilir
       const wordData = responseData.data || responseData;
       setSelectedWordData(wordData);
 
@@ -163,7 +164,7 @@ const HomePage: React.FC = () => {
     } finally {
       setIsEnriching(false);
     }
-  }, [API_BASE_URL]);
+  }, []);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -226,6 +227,4 @@ const HomePage: React.FC = () => {
       />
     </div>
   );
-};
-
-export default HomePage;
+}

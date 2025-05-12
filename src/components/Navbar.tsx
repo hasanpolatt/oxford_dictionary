@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Navbar.css';
+import styles from './Navbar.module.css';
 import ThemeToggle from './ThemeToggle';
 
 interface NavbarProps {
@@ -10,19 +10,19 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
   return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
-          Oxford Dictionary
+    <nav className={styles.navbar}>
+      <div className={styles.navbarContainer}>
+        <Link to="/" className={styles.navbarLogo}>
+          OxWord
         </Link>
-        <ul className="nav-menu">
-          <li className="nav-item">
-            <Link to="/" className="nav-link">
+        <ul className={styles.navMenu}>
+          <li className={styles.navItem}>
+            <Link to="/" className={styles.navLink}>
               Home
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to="/about" className="nav-link">
+          <li className={styles.navItem}>
+            <Link to="/about" className={styles.navLink}>
               About
             </Link>
           </li>

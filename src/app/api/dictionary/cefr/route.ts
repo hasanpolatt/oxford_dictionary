@@ -1,21 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-import clientPromise from '../../../../lib/mongodb';
+import { getCollection, errorResponse, getPaginationParams, createPaginationMeta } from '../../../../lib/api-utils';
 
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const level = searchParams.get('level');
-    const limit = parseInt(searchParams.get('limit') || '50', 10);
-    const skip = parseInt(searchParams.get('skip') || '0', 10);
+    
+    // Get pagination parameters
+    const { limit, skip } = getPaginationParams(searchParams);
 
     if (!level) {
-      return NextResponse.json({ detail: 'CEFR level parameter is required' }, { status: 400 });
+      return errorResponse('CEFR level parameter is required', 400);
     }
 
-    // MongoDB connection
-    const client = await clientPromise;
-    const db = client.db('oxford_dictionary');
-    const collection = db.collection('words');
+    // MongoDB collection
+    const collection = await getCollection();
 
     // Find words for the specified CEFR level
     const query = { CEFR: level.toUpperCase() };
@@ -25,6 +24,7 @@ export async function GET(request: NextRequest) {
     
     // Get results
     const words = await collection.find(query)
+      .collation({ locale: 'en', strength: 2 }) // Case-insensitive sorting
       .sort({ word: 1 }) // Sort alphabetically
       .skip(skip)
       .limit(limit)
@@ -38,17 +38,15 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
+    // Create pagination meta data
+    const paginationMeta = createPaginationMeta(total, limit, skip);
+
     return NextResponse.json({
-      total,
-      words,
-      page: Math.floor(skip / limit) + 1,
-      totalPages: Math.ceil(total / limit)
+      ...paginationMeta,
+      words
     });
   } catch (error) {
     console.error('Error fetching words by CEFR level:', error);
-    return NextResponse.json(
-      { detail: 'An error occurred while fetching words' },
-      { status: 500 }
-    );
+    return errorResponse('An error occurred while fetching words', 500);
   }
 }

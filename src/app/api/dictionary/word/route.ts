@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import clientPromise from '../../../../lib/mongodb';
+import { getCollection, errorResponse } from '../../../../lib/api-utils';
 
 export async function GET(request: NextRequest) {
   try {
@@ -8,13 +8,11 @@ export async function GET(request: NextRequest) {
     const cefr = searchParams.get('cefr') || '';
 
     if (!word) {
-      return NextResponse.json({ detail: 'Word term parameter is required' }, { status: 400 });
+      return errorResponse('Word term parameter is required', 400);
     }
 
-    // MongoDB connection
-    const client = await clientPromise;
-    const db = client.db('oxford_dictionary');
-    const collection = db.collection('words');
+    // MongoDB collection
+    const collection = await getCollection();
 
     // Search word
     let query: any = { word: word };
@@ -32,7 +30,7 @@ export async function GET(request: NextRequest) {
           return NextResponse.json(wordWithoutCefr);
         }
       }
-      return NextResponse.json({ detail: 'Word not found' }, { status: 404 });
+      return errorResponse('Word not found', 404);
     }
 
     // Convert word data to UI-friendly format
@@ -46,9 +44,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(formattedWordData);
   } catch (error) {
     console.error('Error looking up word:', error);
-    return NextResponse.json(
-      { detail: 'An error occurred while looking up the word' },
-      { status: 500 }
-    );
+    return errorResponse('An error occurred while looking up the word', 500);
   }
 }

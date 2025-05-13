@@ -24,82 +24,68 @@ export default function HomePage() {
   const [isEnriching, setIsEnriching] = useState<boolean>(false);
   const [enrichmentError, setEnrichmentError] = useState<string | null>(null);
 
-  // Next.js için API URL'sini güncelliyoruz
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
-  const WORD_CSV = 'words.csv';
-
-  const parseCSV = (csv: string): DictionaryItem[] => {
-    const lines = csv.split('\n');
-    const result: DictionaryItem[] = [];
-    const headers = lines[0].split(';').map(h => h.trim().toLowerCase()); 
-
-    const numberIndex = headers.indexOf('number');
-    const cefrIndex = headers.indexOf('cefr');
-    const typeIndex = headers.indexOf('type'); 
-    const englishIndex = headers.indexOf('english');
-    const turkishIndex = headers.indexOf('turkish'); 
-
-    if ([numberIndex, cefrIndex, typeIndex, englishIndex, turkishIndex].includes(-1)) {
-       console.error("CSV header is missing one or more required columns: number, cefr, type, english, turkish");
-       setError("CSV file has incorrect headers. Required: number;cefr;type;english;turkish");
-       return []; 
-    }
-
-    for (let i = 1; i < lines.length; i++) { 
-      if (!lines[i].trim()) continue;
-
-      try {
-        const columns = lines[i].split(';');
-        if (columns.length >= 5) { 
-          const number = columns[numberIndex]?.trim() || '';
-          const cefr = columns[cefrIndex]?.trim() || '';
-          const wordType = columns[typeIndex]?.trim() || ''; 
-          const english = columns[englishIndex]?.trim() || '';
-          const turkish = columns[turkishIndex]?.trim() || ''; 
-
-          if (english && turkish) { 
-             result.push({ number, cefr, wordType, english, turkish });
-          }
-        }
-      } catch (parseError) {
-        console.error(`Error parsing line ${i}: ${lines[i]}`, parseError);
-      }
-    }
-    return result;
-  };
 
   useEffect(() => {
-    const fetchCSVData = async (): Promise<void> => {
-      if (!API_BASE_URL) {
-        setError("API URL is not configured. Please set NEXT_PUBLIC_API_URL in your environment.");
-        setIsLoading(false);
-        return;
-      }
-
+    const fetchWordsFromMongoDB = async (): Promise<void> => {
       try {
         setIsLoading(true);
-        setError(null); 
-        const response = await fetch(`/${WORD_CSV}`);
+        setError(null);
+        
+        // Fetch words from MongoDB
+        const response = await fetch(`/api/dictionary/search?q=&limit=5000`);
+        
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const data = await response.text();
-        const parsedData = parseCSV(data);
-        if (error) { 
-            setIsLoading(false);
-            return; 
+        
+        const data = await response.json();
+        console.log('API response:', data); // Debug for API response
+        
+        // API response format control
+        let wordsList: any[] = [];
+        
+        if (data.results && Array.isArray(data.results)) {
+          wordsList = data.results;
+        } else if (data.words && Array.isArray(data.words)) {
+          wordsList = data.words;
+        } else {
+          console.error('Unexpected API response format:', data);
+          throw new Error('API response format is unexpected. Check the console.');
         }
-        setAllData(parsedData);
-        setFilteredData(parsedData);
+        
+        // Convert MongoDB data to DictionaryItem format
+        const formattedData: DictionaryItem[] = wordsList.map((word: any, index: number) => {
+          // Check and convert data structure for each word
+          return {
+            number: (index + 1).toString(),
+            cefr: word.CEFR || word.cefr || '',
+            wordType: word.type || word.wordType || '',
+            english: word.word || word.english || '',
+            turkish: word.translations?.tr?.word || word.turkish || ''
+          };
+        });
+        
+        console.log('Formatted data sample:', formattedData.slice(0, 3)); // Log the first 3 words
+        
+        if (formattedData.length === 0) {
+          console.warn('No words found in the database');
+          setError('No words found in the database.');
+        } else {
+          setAllData(formattedData);
+          setFilteredData(formattedData);
+          setError(null);
+        }
+        
         setIsLoading(false);
-      } catch (fetchError) {
-        console.error('Error loading CSV file:', fetchError);
-        setError('An error occurred while loading the word list (CSV). Please check console.');
+      } catch (fetchError: any) {
+        console.error('Error loading words from MongoDB:', fetchError);
+        setError(`Error loading words from MongoDB: ${fetchError.message}`);
         setIsLoading(false);
       }
     };
 
-    fetchCSVData();
+    fetchWordsFromMongoDB();
   }, [API_BASE_URL, error]); 
 
   useEffect(() => {
@@ -154,7 +140,7 @@ export default function HomePage() {
 
       const responseData = await response.json();
       
-      // API yanıtı doğrudan veri veya { message, data } formatında olabilir
+      // API response can be direct data or in { message, data } format
       const wordData = responseData.data || responseData;
       setSelectedWordData(wordData);
 

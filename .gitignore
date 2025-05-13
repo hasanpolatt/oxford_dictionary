@@ -10,6 +10,7 @@
 
 # production
 /build
+.next
 
 # misc
 .DS_Store
@@ -36,5 +37,5 @@ yarn-error.log*
 /backend/__pycache__
 /backend/*.csv
 /backend/details
-
+/src/app/api/test-db/*.ts
 /scripts

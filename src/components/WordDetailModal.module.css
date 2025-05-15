@@ -1,3 +1,4 @@
+/* Modal Overlay */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -18,6 +19,7 @@
   to { opacity: 1; }
 }
 
+/* Modal Content */
 .modalContent {
   background-color: var(--bg-color-lighter);
   border-radius: var(--border-radius);
@@ -52,10 +54,12 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
+/* Word Details */
 .wordDetails {
   padding: 25px;
 }
 
+/* Word Header */
 .wordHeader {
   margin-bottom: 25px;
   padding-bottom: 20px;
@@ -93,9 +97,16 @@
   font-family: 'Space Mono', monospace;
 }
 
-.small {
-  font-size: 0.6rem;
+.languageIndicatorSmall {
+  background-color: var(--bg-color-lightest);
+  color: var(--text-color-muted);
   padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--border-color);
+  font-family: 'Space Mono', monospace;
 }
 
 .sectionTitleContainer {
@@ -138,12 +149,24 @@
 }
 
 .cefrBadge {
+  padding: 5px 10px;
+  border-radius: var(--border-radius);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   background-color: rgba(0, 255, 157, 0.15);
   color: var(--accent-color);
   border: 1px solid var(--accent-color);
 }
 
 .typeBadge {
+  padding: 5px 10px;
+  border-radius: var(--border-radius);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   background-color: rgba(163, 87, 255, 0.15);
   color: var(--accent-tertiary);
   border: 1px solid var(--accent-tertiary);
@@ -156,6 +179,7 @@
   font-weight: 500;
 }
 
+/* Word Sections */
 .wordSection {
   margin-bottom: 25px;
 }
@@ -168,6 +192,7 @@
   text-align: left;
 }
 
+/* Example */
 .exampleContainer {
   background-color: var(--bg-color-lightest);
   border-radius: var(--border-radius);
@@ -211,6 +236,7 @@
   flex: 1;
 }
 
+/* Synonyms */
 .synonymsContainer {
   display: flex;
   flex-wrap: wrap;
@@ -230,6 +256,7 @@
   background-color: var(--bg-color);
 }
 
+/* Loading State */
 .modalLoading {
   display: flex;
   flex-direction: column;
@@ -261,6 +288,7 @@
   letter-spacing: 1px;
 }
 
+/* Error State */
 .modalError {
   padding: 30px;
   text-align: center;
@@ -278,6 +306,7 @@
   letter-spacing: 1px;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
   .modalContent {
     width: 95%;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { DictionaryItem } from '../types';
-import styles from './DictionaryTable.module.css';
+import styles from '../components/DictionaryTable.module.css';
 
 interface DictionaryTableProps {
   data: DictionaryItem[];
@@ -26,14 +26,14 @@ const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) =
 
   return (
     <div className={styles.tableContainer}>
-      <table id="dictionaryTable">
+      <table id="dictionaryTable" className={styles.table}>
         <thead>
           <tr>
-            <th style={{ width: '5%', textAlign: 'center' }}>No</th>
-            <th className={styles.cefrLevel}>CEFR</th>
-            <th className={styles.wordType}>Type</th>
-            <th style={{ textAlign: 'left', paddingLeft: '50px' }}>English</th>
-            <th style={{ textAlign: 'left', paddingLeft: '20px' }}>Türkçe</th>
+            <th className={styles.th} style={{ width: '5%', textAlign: 'center' }}>No</th>
+            <th className={`${styles.th} ${styles.cefrLevel}`}>CEFR</th>
+            <th className={`${styles.th} ${styles.wordType}`}>Type</th>
+            <th className={`${styles.th} ${styles.thEnglish}`}>English</th>
+            <th className={`${styles.th} ${styles.thTurkish}`}>Türkçe</th>
           </tr>
         </thead>
         <tbody>
@@ -42,23 +42,23 @@ const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) =
               <tr
                 key={item.number} 
                 onClick={() => onRowClick(item)} 
-                className={styles.clickableRow} 
+                className={`${styles.tr} ${styles.clickableRow}`} 
                 title="Click for details"
               >
-                <td>{item.number}</td>
-                <td className={styles.cefrLevel}>{item.cefr}</td>
-                <td className={styles.wordType} title={item.wordType}>
+                <td className={`${styles.td} ${styles.tdNumber}`}>{item.number}</td>
+                <td className={`${styles.td} ${styles.cefrLevel}`}>{item.cefr}</td>
+                <td className={`${styles.td} ${styles.wordType}`} title={item.wordType}>
                   {item.wordType && item.wordType.length > 10
                     ? item.wordType.split(',').map(type => type.trim().substring(0, 3)).join(', ')
                     : item.wordType}
                 </td>
-                <td>
+                <td className={`${styles.td} ${styles.tdEnglish}`}>
                   <div className={styles.englishWordContainer}>
                     <button
                       className={styles.pronunciationButton}
                       onClick={(e) => handlePronunciationClick(e, item.english)} 
                       title="Pronounce"
-                      aria-label={`${item.english} pronounce the word`}
+                      aria-label={`${item.english} word pronunciation`}
                     >
                       <svg xmlns="" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
@@ -69,12 +69,12 @@ const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) =
                     <span className={styles.englishWord}>{item.english}</span>
                   </div>
                 </td>
-                <td>{item.turkish}</td>
+                <td className={`${styles.td} ${styles.tdTurkish}`}>{item.turkish}</td>
               </tr>
             ))
           ) : (
-            <tr>
-              <td colSpan={5} className={styles.noResults}>No results found</td>
+            <tr className={styles.tr}>
+              <td colSpan={5} className={`${styles.td} ${styles.noResults}`}>No results found</td>
             </tr>
           )}
         </tbody>

@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './ThemeToggle.module.css';
 
 interface ThemeToggleProps {
   isDarkMode: boolean;
@@ -8,7 +9,7 @@ interface ThemeToggleProps {
 const ThemeToggle: React.FC<ThemeToggleProps> = ({ isDarkMode, toggleTheme }) => {
   return (
     <button 
-      className={`theme-toggle ${isDarkMode ? 'dark' : 'light'}`}
+      className={`${styles.themeToggle} ${isDarkMode ? styles.dark : styles.light}`}
       onClick={toggleTheme}
       title={isDarkMode ? "Switch to light theme" : "Switch to dark theme"}
       aria-label={isDarkMode ? "Switch to light theme" : "Switch to dark theme"}

@@ -1,0 +1,29 @@
+.themeToggle {
+  background-color: var(--bg-color-lightest);
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-left: 15px;
+  transition: all 0.3s ease;
+}
+
+.themeToggle:hover {
+  background-color: var(--bg-color);
+  color: var(--accent-color);
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+  transform: translateY(-2px);
+}
+
+.themeToggle svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  color: var(--accent-color);
+}

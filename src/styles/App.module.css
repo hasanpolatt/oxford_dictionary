@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+.app {
+  text-align: center;
+}
+
+.content {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--footer-height));
+}
+
+.fixedHeader {
+  color: var(--accent-color);
+  height: var(--header-height);
+  border-bottom: 1px solid var(--border-color);
+  margin: 0;
+  position: static;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: var(--bg-color);
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 100%;
+}
+
+.headerTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-secondary), var(--accent-tertiary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.searchControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: var(--bg-color-lighter);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.leftControls {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.exportPdfButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 15px;
+  background-color: var(--bg-color-lightest);
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-right: 15px;
+  height: 40px;
+}
+
+.exportPdfButton:hover {
+  background-color: var(--bg-color);
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+  transform: translateY(-2px);
+}
+
+.exportPdfButton svg {
+  color: var(--accent-color);
+}
+
+.searchContainer {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.rowsPerPageSelector {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.rowsPerPageSelector label {
+  margin-right: 10px;
+  font-weight: 500;
+}
+
+.rowsPerPageSelect {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.rowsPerPageSelect:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+}
+
+.rowsPerPageSelect option {
+  background-color: var(--bg-color-lighter);
+  color: var(--text-color);
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+}
+
+.searchInput::placeholder {
+  color: var(--text-color-muted);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading, .error {
+  padding: 50px;
+  text-align: center;
+  font-size: 18px;
+  background-color: var(--bg-color);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.loading {
+  position: relative;
+}
+
+.loading::before {
+  content: "Loading Data";
+  display: block;
+  margin-bottom: 20px;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 2px;
+  color: var(--accent-color);
+  text-transform: uppercase;
+}
+
+.loading::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 40px;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  border-top-color: var(--accent-color);
+  border-right-color: var(--accent-secondary);
+  border-bottom-color: var(--accent-tertiary);
+  animation: spin 1.2s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+}
+
+.error {
+  color: var(--accent-secondary);
+  border-radius: var(--border-radius);
+  background-color: rgba(255, 0, 160, 0.1);
+  padding: 30px;
+  border: 1px solid var(--accent-secondary);
+  box-shadow: 0 0 20px rgba(255, 0, 160, 0.2);
+}
+
+.noResults {
+  text-align: center;
+  padding: 60px 20px;
+  font-style: italic;
+  color: var(--text-color-muted);
+  background-color: var(--bg-color);
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.noResults::before {
+  content: "🔍";
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.scrollToTop {
+  position: fixed;
+  bottom: calc(var(--footer-height) + 20px);
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--bg-color-lightest);
+  color: var(--accent-color);
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 2px solid var(--accent-color);
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+  z-index: 1000;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+}
+
+.scrollToTop:hover {
+  background-color: var(--bg-color);
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
+  opacity: 1;
+}
+
+

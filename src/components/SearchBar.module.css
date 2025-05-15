@@ -1,0 +1,25 @@
+.searchContainer {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+}
+
+.searchInput::placeholder {
+  color: var(--text-color-muted);
+}

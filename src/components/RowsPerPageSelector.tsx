@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './RowsPerPageSelector.module.css';
 
 interface RowsPerPageSelectorProps {
   itemsPerPage: number;
@@ -15,13 +16,13 @@ const RowsPerPageSelector: React.FC<RowsPerPageSelectorProps> = ({
   };
 
   return (
-    <div className="rows-per-page-selector">
+    <div className={styles.rowsPerPageSelector}>
       <label htmlFor="itemsPerPage">List: </label>
       <select 
         id="itemsPerPage" 
         value={itemsPerPage} 
         onChange={handleChange}
-        className="rows-per-page-select"
+        className={styles.rowsPerPageSelect}
       >
         <option value={10}>10</option>
         <option value={20}>20</option>

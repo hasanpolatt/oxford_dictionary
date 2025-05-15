@@ -1,24 +1,74 @@
-/* Global CSS */
-:root {
-  --primary-color: #1976d2;
-  --secondary-color: #f5f5f5;
-  --text-color: #333;
-  --border-color: #ddd;
-  --error-color: #d32f2f;
-  --success-color: #388e3c;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root, .dark-theme {
+  /* Primary colors */
+  --bg-color: #1a1a1a;
+  --bg-color-lighter: #252525;
+  --bg-color-lightest: #333333;
+  --text-color: #f0f0f0;
+  --text-color-muted: #a0a0a0;
+  
+  /* Neon colors */
+  --accent-color: #00ff9d;
+  --accent-color-hover: #00cc7d;
+  --accent-secondary: #ff00a0;
+  --accent-tertiary: #a357ff;
+  
+  /* Structural variables */
+  --border-color: #333333;
+  --header-height: 80px;
+  --footer-height: 60px;
+  --border-radius: 8px;
+  
+  /* Table colors */
+  --table-header-bg: #1e1e1e;
+  --table-header-color: var(--accent-color);
+  --table-row-hover: rgba(0, 255, 157, 0.1);
+  --table-row-even: rgba(30, 30, 30, 0.5);
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 10px rgba(0, 255, 157, 0.1);
+  --shadow-md: 0 4px 20px rgba(0, 255, 157, 0.15);
+  --shadow-lg: 0 8px 30px rgba(0, 255, 157, 0.2);
+}
+
+.light-theme {
+  --bg-color: #f5f5f5;
+  --bg-color-lighter: #ffffff;
+  --bg-color-lightest: #e8e8e8;
+  --text-color: #333333;
+  --text-color-muted: #666666;
+  
+  --accent-color: #00cc7d;
+  --accent-color-hover: #00aa68;
+  --accent-secondary: #e6007e;
+  --accent-tertiary: #8a43d6;
+  
+  --border-color: #dddddd;
+  
+  --table-header-bg: #f0f0f0;
+  --table-header-color: #00aa68;
+  --table-row-hover: rgba(0, 204, 125, 0.1);
+  --table-row-even: rgba(240, 240, 240, 0.5);
+  
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f9f9f9;
+  background-color: var(--bg-color);
   color: var(--text-color);
   line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
 .content {

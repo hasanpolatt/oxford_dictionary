@@ -9,6 +9,7 @@ import Pagination from '../components/Pagination';
 import { DictionaryItem } from '../types';
 import { WordEnrichment } from '../types/WordDetailModal.types';
 import WordDetailModal from '../components/WordDetailModal';
+import styles from '../styles/App.module.css';
 
 export default function HomePage() {
   const [allData, setAllData] = useState<DictionaryItem[]>([]);
@@ -164,9 +165,9 @@ export default function HomePage() {
   const paginate = (pageNumber: number): void => setCurrentPage(pageNumber);
 
   return (
-    <div className="content">
-      <div className="search-controls">
-        <div className="left-controls">
+    <div className={styles.content}>
+      <div className={styles.searchControls}>
+        <div className={styles.leftControls}>
           <SearchBar
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
@@ -186,9 +187,9 @@ export default function HomePage() {
       </div>
 
       {isLoading ? (
-        <div className="loading"></div>
+        <div className={styles.loading}></div>
       ) : error ? (
-        <div className="error">{error}</div>
+        <div className={styles.error}>{error}</div>
       ) : (
         <>
           <DictionaryTable data={currentItems} onRowClick={handleEnrichWord} />

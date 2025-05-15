@@ -1,11 +1,13 @@
-import '@fontsource/roboto';
+import React from 'react';
 import '../styles/globals.css';
-import { Metadata } from 'next';
+import '../styles/App.module.css';
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'OxWord',
   description: 'An Dictionary application with English-Turkish translations',
 };
+
+import ClientLayout from '../components/ClientLayout';
 
 export default function RootLayout({
   children,
@@ -14,8 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        {children}
+      <body className="dark-theme">
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );

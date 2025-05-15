@@ -32,10 +32,6 @@ yarn-error.log*
 /public/*.csv
 # Add other specific CSV files as needed
 
-/backend/.env
-/backend/.venv
-/backend/__pycache__
-/backend/*.csv
-/backend/details
-/src/app/api/test-db/*.ts
+/backend
+/src/app/api/test-db
 /scripts

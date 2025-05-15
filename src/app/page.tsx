@@ -183,6 +183,7 @@ export default function HomePage() {
             setItemsPerPage(value);
             setCurrentPage(1);
           }}
+          totalItems={filteredData.length}
         />
       </div>
 

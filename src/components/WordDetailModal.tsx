@@ -1,6 +1,6 @@
 import React from 'react';
 import { WordEnrichment } from '../types/WordDetailModal.types';
-import styles from '../components/WordDetailModal.module.css';
+import styles from './WordDetailModal.module.css';
 
 interface WordDetailModalProps {
   isOpen: boolean;
@@ -51,20 +51,20 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
                   <h2 className={styles.wordTitle}>{data.word}</h2>
                 </div>
                 <div className={styles.wordBadges}>
-                  <span className={styles.cefrBadge}>{data.CEFR}</span>
-                  <span className={styles.typeBadge}>{data.type}</span>
+                  <span className={`${styles.wordBadge} ${styles.cefrBadge}`}>{data.CEFR}</span>
+                  <span className={`${styles.wordBadge} ${styles.typeBadge}`}>{data.type}</span>
                 </div>
               </div>
               <div className={styles.wordTranslationContainer}>
                 <span className={styles.languageIndicator}>TR</span>
-                <h3 className={styles.wordTranslation}>{data.translations?.tr?.word || ''}</h3>
+                <h3 className={styles.wordTranslation}>{data.turkishTranslation || data.translations?.tr?.word || ''}</h3>
               </div>
             </div>
             
             <div className={styles.wordSection}>
               <div className={styles.sectionTitleContainer}>
                 <h4 className={styles.sectionTitle}>Definition</h4>
-                <span className={styles.languageIndicatorSmall}>EN</span>
+                <span className={`${styles.languageIndicator} ${styles.small}`}>EN</span>
               </div>
               <p className={styles.sectionContent}>{data.definition}</p>
             </div>
@@ -72,19 +72,24 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
             {data.examples && data.examples.length > 0 && (
               <div className={styles.wordSection}>
                 <div className={styles.sectionTitleContainer}>
-                  <h4 className={styles.sectionTitle}>Example</h4>
+                  <h4 className={styles.sectionTitle}>Examples</h4>
                 </div>
                 <div className={styles.exampleContainer}>
-                  <div className={styles.exampleWithLang}>
-                    <span className={styles.languageIndicatorSmall}>EN</span>
-                    <p className={styles.exampleText}>{data.examples[0]}</p>
-                  </div>
-                  {data.translations?.tr?.examples && data.translations.tr.examples.length > 0 && (
-                    <div className={styles.exampleWithLang}>
-                      <span className={styles.languageIndicatorSmall}>TR</span>
-                      <p className={styles.exampleTranslation}>{data.translations.tr.examples[0]}</p>
+                  {data.examples.map((example, index) => (
+                    <div key={`en-example-${index}`} className={styles.exampleWithLang}>
+                      <span className={`${styles.languageIndicator} ${styles.small}`}>EN</span>
+                      <p className={styles.exampleText}>{example}</p>
                     </div>
-                  )}
+                  ))}
+                  
+                  {data.turkishExamples && data.turkishExamples.length > 0 && 
+                    data.turkishExamples.map((example, index) => (
+                      <div key={`tr-example-${index}`} className={styles.exampleWithLang}>
+                        <span className={`${styles.languageIndicator} ${styles.small}`}>TR</span>
+                        <p className={styles.exampleTranslation}>{example}</p>
+                      </div>
+                    ))
+                  }
                 </div>
               </div>
             )}

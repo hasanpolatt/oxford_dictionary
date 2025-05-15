@@ -8,6 +8,40 @@ interface DictionaryTableProps {
 }
 
 const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) => {
+  const getTypeClass = (type: string): string => {
+    const typeMap: {[key: string]: string} = {
+      'adj.': 'adj',
+      'adj': 'adj',
+      'n.': 'n',
+      'noun': 'n',
+      'v.': 'v',
+      'verb': 'v',
+      'adv.': 'adv',
+      'adverb': 'adv',
+      'prep.': 'prep',
+      'preposition': 'prep',
+      'conj.': 'conj',
+      'conjunction': 'conj',
+      'pron.': 'pron',
+      'pronoun': 'pron',
+      'interj.': 'interj',
+      'interjection': 'interj',
+      'article': 'art',
+      'indefinite article': 'art',
+      'definite article': 'art'
+    };
+    
+    const normalizedType = type.toLowerCase().replace(/\./g, '').trim();
+    
+    for (const [key, value] of Object.entries(typeMap)) {
+      if (normalizedType.includes(key.replace(/\./g, ''))) {
+        return value;
+      }
+    }
+    
+    return 'v';
+  };
+  
   const speakWord = (word: string): void => {
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(word);
@@ -48,9 +82,28 @@ const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) =
                 <td className={`${styles.td} ${styles.tdNumber}`}>{item.number}</td>
                 <td className={`${styles.td} ${styles.cefrLevel}`}>{item.cefr}</td>
                 <td className={`${styles.td} ${styles.wordType}`} title={item.wordType}>
-                  {item.wordType && item.wordType.length > 10
-                    ? item.wordType.split(',').map(type => type.trim().substring(0, 3)).join(', ')
-                    : item.wordType}
+                  {item.wordType && (
+                    <>
+                      {item.wordType.length > 10 ? (
+                        // If multiple word types are present
+                        <div>
+                          {item.wordType.split(',').map((type, index) => {
+                            const typeClass = getTypeClass(type.trim());
+                            return (
+                              <span key={index} className={styles[typeClass]}>
+                                {type.trim().substring(0, 3)}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        // If only one word type is present
+                        <span className={styles[getTypeClass(item.wordType)]}>
+                          {item.wordType}
+                        </span>
+                      )}
+                    </>
+                  )}
                 </td>
                 <td className={`${styles.td} ${styles.tdEnglish}`}>
                   <div className={styles.englishWordContainer}>

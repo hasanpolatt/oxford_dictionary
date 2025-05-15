@@ -40,6 +40,7 @@
   margin-bottom: 0;
   max-width: 100%;
   margin: 0;
+  border-spacing: 0;
 }
 
 .th, .td {
@@ -83,24 +84,42 @@
   text-align: center;
 }
 
+.cefrLevel {
+  width: 8%;
+  text-align: center;
+}
+
 .tdEnglish {
+  width: 38%;
   text-align: left;
+  padding-left: 15px;
 }
 
 .tdTurkish {
+  width: 39%;
   text-align: left;
+  padding-left: 15px;
 }
 
 .thEnglish, .thTurkish {
   text-align: left;
-}
-
-.cefrLevel {
-  text-align: center;
+  padding-left: 15px;
 }
 
 .wordType {
+  width: 10%;
   text-align: center;
+  color: black;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.adj, .n, .v, .adv, .prep, .conj, .pron, .interj, .art {
+  display: inline-block;
+  padding: 2px 5px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--text-color);
 }
 
 .englishWordContainer {

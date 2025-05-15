@@ -34,4 +34,4 @@ yarn-error.log*
 
 /backend
 /src/app/api/test-db
-/scripts
+/src/pages

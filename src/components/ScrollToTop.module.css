@@ -1,4 +1,4 @@
-.scroll-to-top {
+.scrollToTop {
     position: fixed;
     bottom: 30px;
     right: 30px;
@@ -17,11 +17,11 @@
     z-index: 1000;
     transition: all 0.3s ease;
     opacity: 0.8;
-  }
+}
   
-  .scroll-to-top:hover {
+.scrollToTop:hover {
     background-color: #1a252f;
     transform: translateY(-3px);
     box-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
     opacity: 1;
-  }
+}

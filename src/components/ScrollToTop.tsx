@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import './ScrollToTop.css';
+import styles from './ScrollToTop.module.css';
 
 const ScrollToTop: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -34,7 +34,7 @@ const ScrollToTop: React.FC = () => {
       {isVisible && (
         <button 
           onClick={scrollToTop} 
-          className="scroll-to-top"
+          className={styles.scrollToTop}
           aria-label="Scroll to top"
         >
           ↑

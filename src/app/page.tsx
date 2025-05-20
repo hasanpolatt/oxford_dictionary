@@ -9,6 +9,7 @@ import Pagination from '../components/Pagination';
 import { DictionaryItem } from '../types';
 import { WordEnrichment } from '../types/WordDetailModal.types';
 import WordDetailModal from '../components/WordDetailModal';
+import ScrollToTop from '../components/ScrollToTop';
 import styles from '../styles/App.module.css';
 
 export default function HomePage() {
@@ -213,6 +214,9 @@ export default function HomePage() {
         isLoading={isEnriching}
         error={enrichmentError}
       />
+      
+      {/* Scroll To Top Button */}
+      <ScrollToTop />
     </div>
   );
 }

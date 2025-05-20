@@ -152,7 +152,7 @@ export default function HomePage() {
     } finally {
       setIsEnriching(false);
     }
-  }, []);
+  }, [API_BASE_URL]);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);

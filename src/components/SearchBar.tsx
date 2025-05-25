@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './SearchBar.module.css';
 
 interface SearchBarProps {
   searchTerm: string;
@@ -7,10 +8,11 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, setSearchTerm }) => {
   return (
-    <div className="search-container">
+    <div className={styles.searchContainer}>
       <input 
         type="text" 
         id="searchInput" 
+        className={styles.searchInput}
         placeholder="Search..." 
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}

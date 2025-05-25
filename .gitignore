@@ -10,6 +10,7 @@
 
 # production
 /build
+.next
 
 # misc
 .DS_Store
@@ -31,7 +32,6 @@ yarn-error.log*
 /public/*.csv
 # Add other specific CSV files as needed
 
-/backend/.env
-/backend/.venv
-/backend/__pycache__
-
+/backend
+/src/app/api/test-db
+/src/pages

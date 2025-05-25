@@ -1,5 +1,5 @@
 /* Modal Overlay */
-.modal-overlay {
+.modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -20,7 +20,7 @@
 }
 
 /* Modal Content */
-.modal-content {
+.modalContent {
   background-color: var(--bg-color-lighter);
   border-radius: var(--border-radius);
   width: 90%;
@@ -35,15 +35,15 @@
   scrollbar-color: var(--accent-color) var(--bg-color-lighter);
 }
 
-.modal-content::-webkit-scrollbar {
+.modalContent::-webkit-scrollbar {
   width: 8px;
 }
 
-.modal-content::-webkit-scrollbar-track {
+.modalContent::-webkit-scrollbar-track {
   background: var(--bg-color-lighter);
 }
 
-.modal-content::-webkit-scrollbar-thumb {
+.modalContent::-webkit-scrollbar-thumb {
   background-color: var(--accent-color);
   border-radius: 20px;
   border: 2px solid var(--bg-color-lighter);
@@ -54,40 +54,38 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* Close button styles removed */
-
 /* Word Details */
-.word-details {
+.wordDetails {
   padding: 25px;
 }
 
 /* Word Header */
-.word-header {
+.wordHeader {
   margin-bottom: 25px;
   padding-bottom: 20px;
   border-bottom: 1px solid var(--border-color);
 }
 
-.word-title-container {
+.wordTitleContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
 }
 
-.word-main {
+.wordMain {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.word-translation-container {
+.wordTranslationContainer {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.language-indicator {
+.languageIndicator {
   background-color: var(--bg-color-lightest);
   color: var(--text-color-muted);
   padding: 3px 6px;
@@ -99,19 +97,19 @@
   font-family: 'Space Mono', monospace;
 }
 
-.language-indicator.small {
-  font-size: 0.6rem;
+.languageIndicator.small {
   padding: 2px 4px;
+  font-size: 0.6rem;
 }
 
-.section-title-container {
+.sectionTitleContainer {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 10px;
 }
 
-.section-title {
+.sectionTitle {
   font-size: 1.1rem;
   color: var(--text-color);
   font-weight: 600;
@@ -120,7 +118,7 @@
   margin: 0;
 }
 
-.word-title {
+.wordTitle {
   font-size: 2.2rem;
   font-weight: 700;
   color: var(--text-color);
@@ -129,12 +127,12 @@
   letter-spacing: 1px;
 }
 
-.word-badges {
+.wordBadges {
   display: flex;
   gap: 10px;
 }
 
-.word-badge {
+.wordBadge {
   padding: 5px 10px;
   border-radius: var(--border-radius);
   font-size: 0.8rem;
@@ -143,19 +141,19 @@
   letter-spacing: 1px;
 }
 
-.cefr-badge {
+.cefrBadge {
   background-color: rgba(0, 255, 157, 0.15);
   color: var(--accent-color);
   border: 1px solid var(--accent-color);
 }
 
-.type-badge {
+.typeBadge {
   background-color: rgba(163, 87, 255, 0.15);
   color: var(--accent-tertiary);
   border: 1px solid var(--accent-tertiary);
 }
 
-.word-translation {
+.wordTranslation {
   font-size: 1.5rem;
   color: var(--text-color);
   margin: 0;
@@ -163,13 +161,11 @@
 }
 
 /* Word Sections */
-.word-section {
+.wordSection {
   margin-bottom: 25px;
 }
 
-
-
-.section-content {
+.sectionContent {
   font-size: 1rem;
   line-height: 1.6;
   color: var(--text-color);
@@ -178,25 +174,25 @@
 }
 
 /* Example */
-.example-container {
+.exampleContainer {
   background-color: var(--bg-color-lightest);
   border-radius: var(--border-radius);
   padding: 15px 20px;
   border-left: 3px solid var(--border-color);
 }
 
-.example-with-lang {
+.exampleWithLang {
   display: flex;
   align-items: flex-start;
   gap: 8px;
   margin-bottom: 10px;
 }
 
-.example-with-lang:last-child {
+.exampleWithLang:last-child {
   margin-bottom: 0;
 }
 
-.example-text {
+.exampleText {
   font-size: 1rem;
   color: var(--text-color);
   margin: 0;
@@ -204,17 +200,17 @@
   flex: 1;
 }
 
-.example-text::before {
+.exampleText::before {
   content: '"';
   color: var(--text-color-muted);
 }
 
-.example-text::after {
+.exampleText::after {
   content: '"';
   color: var(--text-color-muted);
 }
 
-.example-translation {
+.exampleTranslation {
   font-size: 0.9rem;
   color: var(--text-color-muted);
   margin: 0;
@@ -222,13 +218,13 @@
 }
 
 /* Synonyms */
-.synonyms-container {
+.synonymsContainer {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.synonym-tag {
+.synonymTag {
   background-color: var(--bg-color-lightest);
   color: var(--text-color);
   padding: 5px 12px;
@@ -237,12 +233,12 @@
   border: 1px solid var(--border-color);
 }
 
-.synonym-tag:hover {
+.synonymTag:hover {
   background-color: var(--bg-color);
 }
 
 /* Loading State */
-.modal-loading {
+.modalLoading {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -251,7 +247,7 @@
   text-align: center;
 }
 
-.modal-loading-spinner {
+.modalLoadingSpinner {
   width: 40px;
   height: 40px;
   border: 3px solid transparent;
@@ -267,14 +263,14 @@
   to { transform: rotate(360deg); }
 }
 
-.modal-loading p {
+.modalLoading p {
   color: var(--text-color-muted);
   font-family: 'Space Mono', monospace;
   letter-spacing: 1px;
 }
 
 /* Error State */
-.modal-error {
+.modalError {
   padding: 30px;
   text-align: center;
   color: var(--accent-secondary);
@@ -284,7 +280,7 @@
   border: 1px solid var(--accent-secondary);
 }
 
-.modal-error h3 {
+.modalError h3 {
   margin-bottom: 10px;
   font-family: 'Space Mono', monospace;
   text-transform: uppercase;
@@ -293,26 +289,26 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .modal-content {
+  .modalContent {
     width: 95%;
     max-height: 80vh;
   }
   
-  .word-title {
+  .wordTitle {
     font-size: 1.8rem;
   }
   
-  .word-title-container {
+  .wordTitleContainer {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
   
-  .word-badges {
+  .wordBadges {
     margin-top: 5px;
   }
   
-  .word-details {
+  .wordDetails {
     padding: 20px;
   }
 }

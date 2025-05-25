@@ -2,6 +2,7 @@ import React from 'react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { DictionaryItem } from '../types';
+import styles from '../styles/App.module.css';
 
 // Import Roboto font
 import '@fontsource/roboto';
@@ -106,7 +107,7 @@ const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({
   return (
     <button 
       onClick={exportPdf}
-      className="export-pdf-button"
+      className={styles.exportPdfButton}
       title="Export as PDF"
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

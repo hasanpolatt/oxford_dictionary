@@ -1,0 +1,108 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background-color: var(--bg-color-lighter);
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+  position: relative;
+  gap: 10px;
+}
+
+.paginationButton {
+  padding: 10px 20px;
+  background-color: var(--accent-color);
+  color: black;
+  border: 2px solid var(--accent-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  margin: 0 5px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  min-width: 120px;
+}
+
+.paginationButton:hover {
+  background-color: var(--bg-color);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+}
+
+.paginationButton:disabled {
+  background-color: var(--bg-color-lightest);
+  border-color: var(--border-color);
+  color: var(--text-color-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.paginationCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.pageForm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.currentPageDisplay {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.currentPage {
+  font-size: 16px;
+  color: var(--accent-color);
+  font-family: 'Space Mono', monospace;
+  font-weight: 500;
+}
+
+.pageText {
+  font-size: 14px;
+  color: var(--text-color-muted);
+  font-family: 'Space Mono', monospace;
+}
+
+.simplePageInput {
+  width: 50px;
+  padding: 6px 8px;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+}
+
+.simplePageInput:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0, 255, 157, 0.2);
+}
+
+.goPageButton {
+  padding: 6px 12px;
+  background-color: var(--accent-color);
+  color: black;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin: 0;
+  min-width: 60px;
+}
+
+.goPageButton:hover {
+  background-color: var(--accent-color-hover);
+  transform: translateY(-2px);
+}

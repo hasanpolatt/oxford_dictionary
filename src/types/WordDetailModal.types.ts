@@ -1,31 +1,39 @@
-
 export interface WordDetailsInput {
   CEFR: string;
   type: string;
-  English: string;
-  Turkish: string;
+  word: string;
+  translations: {
+    tr: {
+      word: string;
+    }
+  };
 }
 
-
-export interface Example {
-  en: string;
-  tr: string;
+export interface Translation {
+  word: string;
+  examples?: string[];
 }
-
 
 export interface WordEnrichment {
-  English: string;
-  Turkish: string;
-  CEFR: string;
+  _id: string;
+  word: string;
+  sourceLanguage: string;
   type: string;
+  CEFR: string;
   definition: string;
-  example: Example;
+  pronunciation: string;
+  examples: string[];
   synonyms: string[];
-  notes?: string;
+  translations: {
+    tr: Translation;
+  };
+  note: string;
+  
+  turkishTranslation?: string;
+  turkishExamples?: string[];
 }
 
-
 export interface WordDetailsResponse {
-  message: string;
-  data: WordEnrichment;
+  message?: string;
+  data?: WordEnrichment;
 }

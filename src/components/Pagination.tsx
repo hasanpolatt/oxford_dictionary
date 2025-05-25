@@ -1,4 +1,5 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
+import styles from './Pagination.module.css';
 
 interface PaginationProps {
   currentPage: number;
@@ -26,35 +27,34 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, pagina
   };
   
   return (
-    <div className="pagination">
+    <div className={styles.pagination}>
       <button 
         onClick={() => paginate(currentPage - 1)} 
         disabled={currentPage === 1}
-        className="pagination-button"
+        className={styles.paginationButton}
       >
         Previous
       </button>
       
-      <div className="simple-page-selector">
-        <div className="current-page-display">
-          <span className="current-page">Page {currentPage}</span>
-          <span className="page-text">/ {totalPages}</span>
-        </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <span className={styles.currentPage} style={{ color: 'var(--accent-color)' }}>Page {currentPage}</span>
+        <span className={styles.pageText} style={{ color: 'var(--text-color-muted)' }}>/ {totalPages}</span>
         
-        <form onSubmit={goToPage} className="page-form">
-          <span className="page-text">Go:</span>
+        <form onSubmit={goToPage} className={styles.pageForm} style={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
+          <span className={styles.pageText} style={{ color: 'var(--text-color-muted)' }}>Go:</span>
           <input 
             type="number" 
             min="1" 
             max={totalPages}
             value={inputPage}
             onChange={(e: ChangeEvent<HTMLInputElement>) => setInputPage(e.target.value)}
-            className="simple-page-input"
+            className={styles.simplePageInput}
+            style={{ width: '60px', textAlign: 'center', padding: '8px', margin: '0 5px' }}
             aria-label="Page number"
           />
           <button 
             type="submit"
-            className="go-page-button"
+            className={styles.goPageButton}
             aria-label="Go to page"
           >
             Go
@@ -65,7 +65,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, pagina
       <button 
         onClick={() => paginate(currentPage + 1)} 
         disabled={currentPage === totalPages}
-        className="pagination-button"
+        className={styles.paginationButton}
       >
         Next
       </button>

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getCollection, errorResponse, getPaginationParams, createPaginationMeta } from '../../../../lib/api-utils';
+import { getCollection, errorResponse, getPaginationParams, createPaginationMeta } from '../../../../lib/api-server';
 
 export async function GET(request: NextRequest) {
   try {

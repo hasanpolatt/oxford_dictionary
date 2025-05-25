@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getCollection, errorResponse } from '../../../../lib/api-utils';
+import { getCollection, errorResponse } from '../../../../lib/api-server';
 
 export async function GET(request: NextRequest) {
   try {

@@ -44,3 +44,4 @@ docker-compose.yml
 *.njsproj
 *.sln
 *.sw?
+/src/app/api/test-db

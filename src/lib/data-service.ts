@@ -1,24 +1,25 @@
 import { DictionaryItem } from '../types';
 import { getCollection } from './api-server';
 
-/**
- * Veri erişim katmanı (Data Access Layer)
- * Bu katman, veritabanı işlemlerini soyutlar ve uygulama katmanına temiz bir API sunar
- */
+// Data Access Layer
+// This layer abstracts database operations and provides a clean API to the application layer
 
-/**
- * Tüm kelimeleri getirir ve DictionaryItem formatına dönüştürür
- */
+// Fetch all words
 export async function getAllWords(): Promise<DictionaryItem[]> {
   try {
+    console.log('Getting MongoDB collection...');
     const collection = await getCollection();
+    console.log('Collection obtained, fetching data...');
+    
     const results = await collection.find({})
       .collation({ locale: 'en', strength: 2 })
       .sort({ word: 1 })
       .limit(5000)
       .toArray();
+    
+    console.log(`Found ${results.length} words`);
       
-    // Verileri DictionaryItem formatına dönüştür
+    // Convert data to Dictionary Item format
     return results.map((word, index) => ({
       number: (index + 1).toString(),
       cefr: word.CEFR || word.cefr || '',

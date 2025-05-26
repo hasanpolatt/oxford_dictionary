@@ -22,7 +22,6 @@
 3. Create a `.env.local` file and add your MongoDB connection details:
    ```
    MONGODB_URI=your_mongodb_connection_string
-   NEXT_PUBLIC_API_URL=http://localhost:3000
    ```
 
 4. Start the application:
@@ -30,7 +29,7 @@
    npm run dev
    ```
 
-5. Open http://localhost:3010 in your browser.
+5. Open http://localhost:3000 in your browser.
 
 ### Running with Docker
 
@@ -43,4 +42,4 @@
    docker-compose up --build
    ```
 
-4. Open http://localhost:3010 in your browser.
+4. Open http://localhost:3000 in your browser.

@@ -3,7 +3,7 @@ import { getAllWords } from '../lib/data-service';
 
 export default async function Page() {
   try {
-    // Veri erişim katmanını kullanarak verileri getir
+    // Fetch data using the data access layer
     const initialData = await getAllWords();
     
     return <HomePage initialData={initialData} />;

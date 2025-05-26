@@ -1,3 +1,4 @@
+
 export async function enrichWord(word: string, cefr: string) {
   const encodedWord = encodeURIComponent(word);
   

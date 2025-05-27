@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { DictionaryItem } from '../types';
 import styles from '../components/DictionaryTable.module.css';
+import { enrichWord } from '../lib/api-client';
+import { useCache } from '../lib/cache-service';
+import { WordEnrichment } from '../types/WordDetailModal.types';
 
 interface DictionaryTableProps {
   data: DictionaryItem[];
@@ -8,6 +11,27 @@ interface DictionaryTableProps {
 }
 
 const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) => {
+  // Use the cache service with 'words' namespace
+  const wordCache = useCache<WordEnrichment>('words');
+  
+  // Prefetch word data on hover
+  const prefetchWordData = useCallback((item: DictionaryItem) => {
+    // Create cache key
+    const cacheKey = `${item.english}-${item.cefr}`;
+    
+    // Only fetch if not already in cache
+    if (!wordCache.getItem(cacheKey)) {
+      // Fetch in background without waiting for result
+      enrichWord(item.english, item.cefr)
+        .then(wordData => {
+          // Save to cache service
+          wordCache.setItem(cacheKey, wordData);
+        })
+        .catch(() => {
+          // Silently continue on error, will retry when user clicks
+        });
+    }
+  }, [wordCache]);
   const getTypeClass = (type: string): string => {
     const typeMap: {[key: string]: string} = {
       'adj.': 'adj',
@@ -75,7 +99,8 @@ const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) =
             data.map((item) => (
               <tr
                 key={item.number} 
-                onClick={() => onRowClick(item)} 
+                onClick={() => onRowClick(item)}
+                onMouseEnter={() => prefetchWordData(item)}
                 className={`${styles.tr} ${styles.clickableRow}`} 
                 title="Click for details"
               >

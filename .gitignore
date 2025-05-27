@@ -30,8 +30,11 @@ yarn-error.log*
 # *.csv
 # Or specify particular CSV files to ignore
 /public/*.csv
+/public/*.json
 # Add other specific CSV files as needed
 
 /backend
 /src/app/api/test-db
 /src/pages
+*.csv
+*.py

@@ -6,11 +6,6 @@
   background-color: var(--table-row-hover);
 }
 
-/* Ensure hover on even rows uses the same hover color */
-.clickableRow:nth-child(even):hover {
-  background-color: var(--table-row-hover);
-}
-
 .tableContainer {
   width: 100%;
   max-width: 1200px;
@@ -89,16 +84,102 @@
 .cefrLevel {
   width: 8%;
   text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.cefrHeaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.cefrHeaderText {
+  margin-right: 5px;
+}
+
+.cefrFilterIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.cefrHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.filterIcon {
+  display: flex;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.activeFilter {
+  display: inline-block;
+  font-size: 0.7rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: white;
+  padding: 2px 4px;
+  border-radius: 3px;
+  margin-right: 4px;
+}
+
+.cefrDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 150px;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 8px 0;
+}
+
+.cefrDropdownItem {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.cefrDropdownItem:hover {
+  background-color: var(--table-row-hover);
+}
+
+.activeItem {
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+.cefrDropdownDivider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 8px 0;
+}
+
+.sorted {
+  background-color: rgba(0, 255, 157, 0.6);
+  color: black !important;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .tdEnglish {
-  width: 38%;
+  width: 40%;
   text-align: left;
   padding-left: 15px;
 }
 
 .tdTurkish {
-  width: 39%;
+  width: 40%;
   text-align: left;
   padding-left: 15px;
 }

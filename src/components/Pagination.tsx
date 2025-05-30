@@ -36,12 +36,12 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, pagina
         Previous
       </button>
       
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <span className={styles.currentPage} style={{ color: 'var(--accent-color)' }}>Page {currentPage}</span>
-        <span className={styles.pageText} style={{ color: 'var(--text-color-muted)' }}>/ {totalPages}</span>
+      <div className={styles.pageContainer}>
+        <span className={styles.currentPage}>Page {currentPage}</span>
+        <span className={styles.pageText}>/ {totalPages}</span>
         
-        <form onSubmit={goToPage} className={styles.pageForm} style={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
-          <span className={styles.pageText} style={{ color: 'var(--text-color-muted)' }}>Go:</span>
+        <form onSubmit={goToPage} className={styles.pageForm}>
+          <span className={styles.pageText}>Go:</span>
           <input 
             type="number" 
             min="1" 
@@ -49,7 +49,6 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, pagina
             value={inputPage}
             onChange={(e: ChangeEvent<HTMLInputElement>) => setInputPage(e.target.value)}
             className={styles.simplePageInput}
-            style={{ width: '60px', textAlign: 'center', padding: '8px', margin: '0 5px' }}
             aria-label="Page number"
           />
           <button 

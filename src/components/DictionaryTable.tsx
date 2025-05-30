@@ -1,21 +1,35 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { DictionaryItem } from '../types';
 import styles from '../components/DictionaryTable.module.css';
 import { enrichWord } from '../lib/api-client';
 import { useCache } from '../lib/cache-service';
 import { WordEnrichment } from '../types/WordDetailModal.types';
+import { CefrFilterType } from '../app/hooks/useCefrFilter';
+import CefrDropdown from './CefrDropdown';
+import { FaVolumeUp } from 'react-icons/fa';
 
 interface DictionaryTableProps {
   data: DictionaryItem[];
-  onRowClick: (item: DictionaryItem) => void; 
+  onRowClick: (item: DictionaryItem) => void;
+  onCefrFilterChange?: (cefr: CefrFilterType) => void;
+  onCefrSortToggle?: () => void;
+  currentCefrFilter?: CefrFilterType;
+  isSortedByCefr?: boolean;
 }
 
-const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) => {
+const DictionaryTable: React.FC<DictionaryTableProps> = ({ 
+  data, 
+  onRowClick, 
+  onCefrFilterChange = () => {}, 
+  onCefrSortToggle = () => {}, 
+  currentCefrFilter = 'all', 
+  isSortedByCefr = false 
+}) => {
   // Use the cache service with 'words' namespace
   const wordCache = useCache<WordEnrichment>('words');
   
   // Prefetch word data on hover
-  const prefetchWordData = useCallback((item: DictionaryItem) => {
+  const prefetchWordData = (item: DictionaryItem) => {
     // Create cache key
     const cacheKey = `${item.english}-${item.cefr}`;
     
@@ -31,7 +45,7 @@ const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) =
           // Silently continue on error, will retry when user clicks
         });
     }
-  }, [wordCache]);
+  };
   const getTypeClass = (type: string): string => {
     const typeMap: {[key: string]: string} = {
       'adj.': 'adj',
@@ -88,7 +102,24 @@ const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) =
         <thead>
           <tr>
             <th className={styles.th} style={{ width: '5%', textAlign: 'center' }}>No</th>
-            <th className={`${styles.th} ${styles.cefrLevel}`}>CEFR</th>
+            <th 
+              className={`${styles.th} ${styles.cefrLevel} ${isSortedByCefr ? styles.sorted : ''}`}
+              onClick={onCefrSortToggle}
+            >
+              <div className={styles.cefrHeaderContainer}>
+                <span className={styles.cefrHeaderText}>CEFR</span>
+                <span className={styles.cefrFilterIcon} onClick={(e) => {
+                  e.stopPropagation(); // Block title click event
+                }}>
+                  <CefrDropdown 
+                    currentFilter={currentCefrFilter} 
+                    isSorted={isSortedByCefr}
+                    onFilterChange={onCefrFilterChange}
+                    onSortToggle={onCefrSortToggle}
+                  />
+                </span>
+              </div>
+            </th>
             <th className={`${styles.th} ${styles.wordType}`}>Type</th>
             <th className={`${styles.th} ${styles.thEnglish}`}>English</th>
             <th className={`${styles.th} ${styles.thTurkish}`}>Türkçe</th>
@@ -96,60 +127,61 @@ const DictionaryTable: React.FC<DictionaryTableProps> = ({ data, onRowClick }) =
         </thead>
         <tbody>
           {data.length > 0 ? (
-            data.map((item) => (
-              <tr
-                key={item.number} 
-                onClick={() => onRowClick(item)}
-                onMouseEnter={() => prefetchWordData(item)}
-                className={`${styles.tr} ${styles.clickableRow}`} 
-                title="Click for details"
-              >
-                <td className={`${styles.td} ${styles.tdNumber}`}>{item.number}</td>
-                <td className={`${styles.td} ${styles.cefrLevel}`}>{item.cefr}</td>
-                <td className={`${styles.td} ${styles.wordType}`} title={item.wordType}>
-                  {item.wordType && (
-                    <>
-                      {item.wordType.length > 10 ? (
-                        // If multiple word types are present
-                        <div>
-                          {item.wordType.split(',').map((type, index) => {
-                            const typeClass = getTypeClass(type.trim());
-                            return (
-                              <span key={index} className={styles[typeClass]}>
-                                {type.trim().substring(0, 3)}
-                              </span>
-                            );
-                          })}
-                        </div>
-                      ) : (
-                        // If only one word type is present
-                        <span className={styles[getTypeClass(item.wordType)]}>
-                          {item.wordType}
-                        </span>
-                      )}
-                    </>
-                  )}
-                </td>
-                <td className={`${styles.td} ${styles.tdEnglish}`}>
-                  <div className={styles.englishWordContainer}>
-                    <button
-                      className={styles.pronunciationButton}
-                      onClick={(e) => handlePronunciationClick(e, item.english)} 
-                      title="Pronounce"
-                      aria-label={`${item.english} word pronunciation`}
-                    >
-                      <svg xmlns="" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-                      </svg>
-                    </button>
-                    <span className={styles.englishWord}>{item.english}</span>
-                  </div>
-                </td>
-                <td className={`${styles.td} ${styles.tdTurkish}`}>{item.turkish}</td>
-              </tr>
-            ))
+            data.map((item, index) => {
+              // Creating consecutive ID
+              const displayId = index + 1;
+              
+              return (
+                <tr
+                  key={item.number} 
+                  onClick={() => onRowClick(item)}
+                  onMouseEnter={() => prefetchWordData(item)}
+                  className={`${styles.tr} ${styles.clickableRow}`} 
+                  title="Click for details"
+                >
+                  <td className={`${styles.td} ${styles.tdNumber}`}>{displayId}</td>
+                  <td className={`${styles.td} ${styles.cefrLevel}`}>{item.cefr}</td>
+                  <td className={`${styles.td} ${styles.wordType}`} title={item.wordType}>
+                    {item.wordType && (
+                      <>
+                        {item.wordType.length > 10 ? (
+                          // If multiple word types are present
+                          <div>
+                            {item.wordType.split(',').map((type, index) => {
+                              const typeClass = getTypeClass(type.trim());
+                              return (
+                                <span key={index} className={styles[typeClass]}>
+                                  {type.trim().substring(0, 3)}
+                                </span>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          // If only one word type is present
+                          <span className={styles[getTypeClass(item.wordType)]}>
+                            {item.wordType}
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </td>
+                  <td className={`${styles.td} ${styles.tdEnglish}`}>
+                    <div className={styles.englishWordContainer}>
+                      <button
+                        className={styles.pronunciationButton}
+                        onClick={(e) => handlePronunciationClick(e, item.english)} 
+                        title="Pronounce"
+                        aria-label={`${item.english} word pronunciation`}
+                      >
+                        <FaVolumeUp />
+                      </button>
+                      <span className={styles.englishWord}>{item.english}</span>
+                    </div>
+                  </td>
+                  <td className={`${styles.td} ${styles.tdTurkish}`}>{item.turkish}</td>
+                </tr>
+              );
+            })
           ) : (
             <tr className={styles.tr}>
               <td colSpan={5} className={`${styles.td} ${styles.noResults}`}>No results found</td>

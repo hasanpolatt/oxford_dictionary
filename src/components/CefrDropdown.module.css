@@ -1,0 +1,74 @@
+.cefrDropdownContainer {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  width: 100%;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.filterButton:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.activeFilter {
+  display: inline-block;
+  font-size: 0.7rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: white;
+  padding: 2px 4px;
+  border-radius: 3px;
+  margin-right: 4px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 150px;
+  background-color: var(--bg-color, #ffffff);
+  color: var(--text-color, #000000);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  padding: 8px 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dropdownItem {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.dropdownItem:hover {
+  background-color: var(--table-row-hover);
+}
+
+.activeItem {
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+.dropdownDivider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 8px 0;
+}
+
+.sorted {
+  background-color: var(--accent-color-dark);
+  color: white;
+}

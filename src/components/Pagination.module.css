@@ -26,8 +26,8 @@
 }
 
 .paginationButton:hover {
-  background-color: var(--bg-color);
-  transform: translateY(-3px);
+  background-color: var(--accent-color-hover);
+  transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
 }
 
@@ -51,6 +51,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-left: 10px;
+}
+
+.pageContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .currentPageDisplay {
@@ -73,14 +80,15 @@
 }
 
 .simplePageInput {
-  width: 50px;
-  padding: 6px 8px;
+  width: 75px;
+  padding: 8px;
   background-color: var(--bg-color);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   color: var(--text-color);
-  text-align: center;
+  text-align: start;
   font-family: 'Space Mono', monospace;
+  margin: 0 5px;
 }
 
 .simplePageInput:focus {

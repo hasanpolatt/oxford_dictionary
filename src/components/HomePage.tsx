@@ -17,7 +17,15 @@ interface HomePageProps {
 }
 
 export default function HomePage({ initialData }: HomePageProps) {
-  const { filteredData, searchTerm, setSearchTerm } = useWordSearch(initialData);
+  const { 
+    filteredData, 
+    searchTerm, 
+    setSearchTerm, 
+    cefrFilter, 
+    handleCefrFilterChange, 
+    sortByCefr, 
+    toggleSortByCefr 
+  } = useWordSearch(initialData);
   const { enrichWord, isEnriching, selectedWordData, enrichmentError, isModalOpen, closeModal } = useWordEnrichment();
   const { currentItems, currentPage, totalPages, itemsPerPage, setItemsPerPage, paginate } = usePagination(filteredData);
 
@@ -37,7 +45,11 @@ export default function HomePage({ initialData }: HomePageProps) {
 
       <DictionaryTable 
         data={currentItems} 
-        onRowClick={handleEnrichWord} 
+        onRowClick={handleEnrichWord}
+        onCefrFilterChange={handleCefrFilterChange}
+        onCefrSortToggle={toggleSortByCefr}
+        currentCefrFilter={cefrFilter}
+        isSortedByCefr={sortByCefr}
       />
 
       {filteredData.length > 0 && totalPages > 1 && (
